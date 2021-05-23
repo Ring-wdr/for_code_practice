@@ -1,0 +1,37 @@
+import java.util.ArrayList;
+import java.util.HashMap;
+
+
+class Solution {
+    public String[] solution(String[] record) {
+        String [] uidArr = new String[record.length];
+        for(int i = 0; i < record.length ; i++){ 
+            uidArr[i] = record[i].split(" ")[1];
+        }
+		
+		HashMap<String, String> map = new HashMap<String, String>();
+		
+		for(int j = 0; j <record.length; j++) {
+			try{
+				map.put(uidArr[j],record[j].split(" ")[2]);
+			} catch(ArrayIndexOutOfBoundsException e) {
+				
+			}
+		}
+		
+		ArrayList<String> resList = new ArrayList<>();
+		
+		for(int z=0; z < record.length; z++) {
+			if (record[z].charAt(0) == 'E') {
+	            resList.add(map.get(uidArr[z])+"님이 들어왔습니다.");
+			} else if (record[z].charAt(0) == 'L') {
+	            resList.add(map.get(uidArr[z])+"님이 나갔습니다.");			
+			}
+		}
+		
+        
+        String[] answer = resList.toArray(new String[resList.size()]);
+        
+        return answer;
+    }
+}

@@ -1,0 +1,51 @@
+class Solution {
+    public String solution(String new_id) {
+        
+        //5. 빈 문자열이면 a 대입
+        if(firstChange(new_id).equals("")){
+            new_id = "a";
+        } else{
+            new_id = firstChange(new_id);
+        }
+        //6. 16자 이상시 15개 출력, .제거
+        if(new_id.length() >= 16 ){
+            new_id = new_id.substring(0,15);
+        }
+        
+        if(new_id.substring(new_id.length()-1).equals(".")){
+            new_id = new_id.substring(0, new_id.length() - 1);
+        }
+        
+        //7. 2자 이하시 마지막 반복
+        if(new_id.length() <= 2){
+            String ch = new_id.substring(new_id.length() - 1);
+            for (int i = 0; i < 4 - new_id.length() ;i++){
+                new_id += ch;
+            }
+        }
+        
+        
+        String answer = new_id;
+        return answer;
+    }
+    
+    public static String firstChange(String new_id){
+        //1. 소문자로 치환
+        new_id = new_id.toLowerCase();
+        //2. -_.제외한 모든 문자 제거
+        new_id = new_id.replaceAll("[^a-z0-9\\.\\-_]", "");
+        //3. .이 연속일때 제거
+        new_id = new_id.replaceAll("\\.{2,}", ".");
+        //4. .이 처음이나 끝일때 제거
+        try{
+            if (new_id.charAt(0) == '.'){
+               new_id = new_id.substring(1);
+            } else if (new_id.charAt(new_id.length()-1) == '.'){
+              new_id = new_id.substring(0,new_id.length()-1);
+            }
+        } catch(StringIndexOutOfBoundsException e) {
+        }
+        return new_id;
+    }
+        
+}
